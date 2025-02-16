@@ -1,15 +1,12 @@
 "use client";
 
 import React, { Suspense, useEffect } from "react";
-import { useRouter, useSearchParams } from "next/navigation"; // Next.js App Router
-import QuestionListPage from "@/components/QuestionListPage"; // Import the component to display tiles
+import { useRouter } from "next/navigation"; // Only use router here
+import QuestionTileWrapper from "@/components/QuestionTileWrapper"; // New Wrapper Component
 
 export default function QuestionsTile() {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const testId = searchParams.get("testId"); // Extract testId from URL
 
-  // Check if the user is logged in
   useEffect(() => {
     const loggedIn = sessionStorage.getItem("loggedIn");
     if (!loggedIn) {
@@ -17,26 +14,9 @@ export default function QuestionsTile() {
     }
   }, [router]);
 
-  if (!testId) {
-    return (
-      <div className="h-screen flex items-center justify-center text-white">
-        <p className="text-lg font-semibold">No test selected. Please go back and select a test.</p>
-      </div>
-    );
-  }
-
   return (
-    <div className="h-screen flex flex-col bg-gradient-to-br from-gray-900 via-space-900 to-gray-900 text-white">
-      <div className="text-center py-8">
-        <h1 className="text-4xl font-extrabold text-teal-300">
-          Questions for Test ID: {testId}
-        </h1>
-      </div>
-
-      {/* ✅ Wrap `QuestionListPage` inside `Suspense` to prevent hydration issues */}
-      <Suspense fallback={<div className="text-center text-white">Loading questions...</div>}>
-        <QuestionListPage testId={testId} />
-      </Suspense>
-    </div>
+    <Suspense fallback={<div className="text-white text-center p-6">Loading questions...</div>}>
+      <QuestionTileWrapper />
+    </Suspense>
   );
 }

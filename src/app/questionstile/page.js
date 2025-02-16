@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { Suspense, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation"; // Next.js App Router
 import QuestionListPage from "@/components/QuestionListPage"; // Import the component to display tiles
 
@@ -32,8 +32,11 @@ export default function QuestionsTile() {
           Questions for Test ID: {testId}
         </h1>
       </div>
-      {/* Render the list of questions dynamically */}
-      <QuestionListPage testId={testId}/>
+
+      {/* ✅ Wrap `QuestionListPage` inside `Suspense` to prevent hydration issues */}
+      <Suspense fallback={<div className="text-center text-white">Loading questions...</div>}>
+        <QuestionListPage testId={testId} />
+      </Suspense>
     </div>
   );
 }

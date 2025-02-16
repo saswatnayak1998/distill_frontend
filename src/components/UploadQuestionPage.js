@@ -1,11 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
-const UploadQuestionPage = () => {
-  const searchParams = useSearchParams();
-  const testId = searchParams.get("testId"); // Extract the testId from query params
+const UploadQuestionPage = ({ testId }) => {
   const router = useRouter();
 
   const [questionText, setQuestionText] = useState("");
@@ -23,11 +21,9 @@ const UploadQuestionPage = () => {
         throw new Error("Test cases must be a JSON array.");
       }
     } catch (error) {
-      alert("Invalid test cases format! Please enter valid JSON.");
+      alert("❌ Invalid test cases format! Please enter valid JSON.");
       return;
     }
-
-    const title = questionText.slice(0, 50); // Automatically derive title
 
     try {
       const response = await fetch("https://backenddistill-production.up.railway.app/upload-question", {
@@ -39,26 +35,22 @@ const UploadQuestionPage = () => {
           test_id: parseInt(testId, 10),
           question: questionText,
           test_cases: parsedTestCases,
-          reference_solution: referenceSolution || null, // Optional field
+          reference_solution: referenceSolution || null,
           max_score: parseInt(maxScore, 10),
         }),
       });
 
-      if (response.ok) {
-        alert("Question uploaded successfully!");
-        router.push(`/questionstile?testId=${testId}`); // Redirect back to questions page
-      } else {
+      if (!response.ok) {
         const errorData = await response.json();
-        alert(`Failed to upload question: ${errorData.error}`);
+        throw new Error(errorData.error || "Failed to upload question.");
       }
-    } catch (error) {
-      console.error("Error uploading question:", error);
-      alert("An error occurred while uploading the question.");
-    }
-  };
 
-  const handleBackToQuestions = () => {
-    router.push(`/questionstile?testId=${testId}`); // Navigate back to the questions page
+      alert("✅ Question uploaded successfully!");
+      router.push(`/questionstile?testId=${testId}`); // Redirect back to questions page
+    } catch (error) {
+      console.error("❌ Error uploading question:", error);
+      alert(error.message);
+    }
   };
 
   return (
@@ -111,7 +103,7 @@ const UploadQuestionPage = () => {
           <div className="flex justify-between">
             <button
               type="button"
-              onClick={handleBackToQuestions}
+              onClick={() => router.push(`/questionstile?testId=${testId}`)}
               className="px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white font-semibold rounded-lg shadow-md transition-all"
             >
               Back to Questions

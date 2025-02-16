@@ -30,7 +30,7 @@ const UploadQuestionPage = () => {
     const title = questionText.slice(0, 50); // Automatically derive title
 
     try {
-      const response = await fetch("https://backenddistill-production.up.railway.app:8080/upload-question", {
+      const response = await fetch("https://backenddistill-production.up.railway.app/upload-question", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

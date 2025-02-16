@@ -3,21 +3,22 @@ import { useRouter } from "next/navigation";
 const QuestionTile = ({ question }) => {
   const router = useRouter();
 
-  const handleTileClick = () => {
-    const title = question.description
-      ? question.description.slice(0, 50) // Take the first 50 characters of the question as the title
-      : "Untitled Question";
-  
-    const candidateId = sessionStorage.getItem("candidateId"); // Retrieve candidateId from session storage
-  
-    router.push(
-      `/editor?questionId=${question.id}` +
-        `&title=${encodeURIComponent(title)}` +
-        `&description=${encodeURIComponent(question.description || "No description available.")}` +
-        `&referenceSolution=${encodeURIComponent(question.reference_solution || "")}` +
-        `&candidateId=${encodeURIComponent(candidateId || "")}` // Include candidateId in the URL
-    );
-  };
+
+const handleTileClick = () => {
+  const title = question.description
+    ? question.description.slice(0, 50) // Take the first 50 characters of the question as the title
+    : "Untitled Question";
+
+  const candidateId = sessionStorage.getItem("candidateId"); // Retrieve candidateId from session storage
+
+  router.push(
+    `/editor?questionId=${question.id}` +
+      `&title=${encodeURIComponent(title)}` +
+      `&description=${encodeURIComponent(question.description || "No description available.")}` +
+      `&referenceSolution=${encodeURIComponent(question.reference_solution || "")}` +
+      `&candidateId=${encodeURIComponent(candidateId || "")}` // Include candidateId in the URL
+  );
+};
 
   return (
     <div

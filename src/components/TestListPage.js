@@ -13,7 +13,7 @@ const TestListPage = ({ candidateId }) => {
   useEffect(() => {
     const fetchTests = async () => {
       try {
-        const response = await fetch("https://backenddistill-production.up.railway.app:8080/get-tests", {
+        const response = await fetch("https://backenddistill-production.up.railway.app/get-tests", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -86,19 +86,19 @@ const TestListPage = ({ candidateId }) => {
 
         {/* Test List */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {tests.length > 0 ? (
-            tests.map((test) => (
-              <TestTile
-                key={test.id}
-                test={test}
-                onClick={() => handleTileClick(test.id)}
-              />
-            ))
-          ) : (
-            <div className="col-span-full text-center text-gray-300 text-xl font-semibold">
-              No tests available. Create a new test to get started!
-            </div>
-          )}
+        {tests.length > 0 ? (
+          tests.map((test, index) => (
+            <TestTile
+              key={test.id || index}  // Ensure key is unique
+              test={test}
+              onClick={() => handleTileClick(test.id)}
+            />
+          ))
+        ) : (
+          <div className="col-span-full text-center text-gray-300 text-xl font-semibold">
+            No tests available. Create a new test to get started!
+          </div>
+        )}
         </div>
       </div>
     </div>

@@ -9,7 +9,7 @@ export const useRunCode = () => {
     setIsLoading(true);
     setOutput(""); // Clear previous output
     try {
-      const response = await fetch("http://localhost:8080/run", {
+      const response = await fetch("https://backenddistill-production.up.railway.app/run", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ language, code }),
@@ -35,7 +35,7 @@ export const useRunCode = () => {
     try {
       console.log("🚀 Sending test request with logs:", copyPasteLogs);
 
-      const response = await fetch("http://localhost:8080/run-tests", {
+      const response = await fetch("https://backenddistill-production.up.railway.app/run-tests", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

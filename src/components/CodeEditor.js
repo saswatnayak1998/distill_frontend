@@ -39,7 +39,7 @@ export default function CodeEditor() {
 
     const fetchQuestionDetails = async () => {
       try {
-        const response = await fetch(`https:///backenddistill-production.up.railway.app/get-question/${questionId}`);
+        const response = await fetch(`https://backenddistill-production.up.railway.app/get-question/${questionId}`);
 
         if (!response.ok) {
           throw new Error(`Failed to fetch question details: ${response.statusText}`);

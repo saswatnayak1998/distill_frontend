@@ -29,7 +29,7 @@ const SignUpPage = () => {
 
     try {
       // Call the /create-user endpoint
-      const response = await fetch("https://backenddistill-production.up.railway.app:8080/create-user", {
+      const response = await fetch("https://backenddistill-production.up.railway.app/create-user", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

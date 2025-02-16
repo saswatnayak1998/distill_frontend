@@ -15,22 +15,28 @@ const QuestionListPage = () => {
 
   useEffect(() => {
     if (!testId || !candidateId) {
+      console.error("🚨 Missing testId or candidateId:", { testId, candidateId });
       alert("Test ID or Candidate ID is missing! Redirecting...");
       router.push("/testtile");
     }
   }, [testId, candidateId, router]);
-
+  
   useEffect(() => {
     if (!testId) return;
 
+    console.log("✅ Fetching questions for test ID:", testId);  // Debugging log
+
     const fetchQuestions = async () => {
       try {
-        const response = await fetch(`https://backenddistill-production.up.railway.app:8080/get-questions?test_id=${testId}`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
+        const response = await fetch(
+          `https://backenddistill-production.up.railway.app/get-questions?test_id=${testId}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
 
         if (!response.ok) {
           throw new Error(`Failed to fetch questions: ${response.statusText}`);
@@ -41,17 +47,19 @@ const QuestionListPage = () => {
           throw new Error("Invalid response format: Expected an array");
         }
 
+        console.log("✅ Questions fetched:", data);  // Debugging log
         setQuestions(data);
       } catch (error) {
-        console.error("Error fetching questions:", error);
-        setError(error.message);
+        console.error("❌ Error fetching questions:", error);
+        setError(error.message || "Failed to fetch questions. Please try again.");
       } finally {
         setLoading(false);
       }
     };
 
     fetchQuestions();
-  }, [testId]);
+}, [testId]);
+
 
   const handleUploadClick = () => {
     router.push(`/upload_question?testId=${testId}&candidateId=${candidateId}`);

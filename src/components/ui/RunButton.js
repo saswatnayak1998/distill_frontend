@@ -1,5 +1,5 @@
 import React from "react";
-import { LoadingSpinner } from "./LoadingSpinner";
+import { LoadingSpinner } from ".";
 
 const RunButton = ({ isLoading, onClick, label, gradientFrom = '', gradientTo = '', icon }) => (
     <button

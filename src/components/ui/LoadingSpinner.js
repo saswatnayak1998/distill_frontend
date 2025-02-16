@@ -1,7 +1,7 @@
 // components/LoadingSpinner.js
 "use client";
 
-export const LoadingSpinner = () => (
+const LoadingSpinner = () => (
   <div className="inline-block animate-spin">
     <svg
       className="w-5 h-5"
@@ -25,3 +25,4 @@ export const LoadingSpinner = () => (
     </svg>
   </div>
 );
+export default LoadingSpinner;

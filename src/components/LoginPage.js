@@ -33,7 +33,6 @@ const LoginPage = () => {
         }),
       });
 
-
       if (!response.ok) {
         const errorData = await response.json();
         console.log("Error Data:", errorData); // Debugging step
@@ -77,15 +76,15 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="h-screen flex flex-col items-center justify-center bg-gradient-to-br from-gray-900 to-gray-700 text-white">
-      <div className="w-1/3 p-8 bg-gray-800 rounded-lg shadow-lg">
-        <h1 className="text-4xl font-extrabold mb-6 text-center bg-gradient-to-r from-teal-400 to-purple-400 bg-clip-text text-transparent">
+    <div className="h-screen flex flex-col items-center justify-center bg-gradient-to-br from-gray-900 to-gray-700 text-white px-4">
+      <div className="w-full max-w-md px-6 py-8 bg-gray-800 rounded-lg shadow-lg">
+        <h1 className="text-3xl font-extrabold mb-6 text-center bg-gradient-to-r from-teal-400 to-purple-400 bg-clip-text text-transparent">
           Candidate Login
         </h1>
 
         {/* Error Message */}
         {error && (
-          <div className="mb-4 p-2 bg-red-500/20 text-red-300 text-sm rounded-md">
+          <div className="mb-4 p-3 bg-red-500/20 text-red-300 text-sm rounded-md text-center">
             {error}
           </div>
         )}
@@ -109,7 +108,7 @@ const LoginPage = () => {
           />
         </form>
 
-        <div className="flex justify-between items-center mt-6 gap-4">
+        <div className="flex flex-wrap justify-between items-center mt-6 gap-4">
           <RunButton
             isLoading={isLoading}
             onClick={handleLogin}
@@ -117,7 +116,7 @@ const LoginPage = () => {
             gradientFrom="from-teal-500"
             gradientTo="to-purple-600"
             icon="🚀"
-            className="w-32 py-2"
+            className="w-full sm:w-32 py-2"
           />
           <RunButton
             isLoading={false}
@@ -126,7 +125,7 @@ const LoginPage = () => {
             gradientFrom="from-purple-500"
             gradientTo="to-pink-600"
             icon="✨"
-            className="w-32 py-2"
+            className="w-full sm:w-32 py-2"
           />
         </div>
       </div>

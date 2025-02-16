@@ -87,7 +87,13 @@ const LandingPage = () => {
             <div className="flex justify-center space-x-6 flex-wrap gap-4">
               <RunButton onClick={() => router.push("/login")} label="Start Test" gradientFrom="from-teal-500" gradientTo="to-purple-600" icon="🚀" />
               <RunButton onClick={() => router.push("/recruiter")} label="Recruiter Demo" gradientFrom="from-blue-500" gradientTo="to-indigo-600" icon="👔" />
-              <RunButton onClick={() => alert("Contact Sales")} label="Contact Us" gradientFrom="from-amber-500" gradientTo="to-pink-600" icon="🏢" />
+              <RunButton 
+                    onClick={() => window.location.href = "https://calendly.com/saswatxenon/30min"} 
+                    label="Contact Us" 
+                    gradientFrom="from-amber-500" 
+                    gradientTo="to-pink-600" 
+                    icon="🏢" 
+                    />
             </div>
           </section>
 
